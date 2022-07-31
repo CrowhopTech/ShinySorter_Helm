@@ -1,0 +1,28 @@
+mongodb:
+  architecture: standalone
+  persistence:
+    storageClass: shinysorter-mongo-sc
+    resourcePolicy: "keep"
+    size: "8Gi"
+  auth:
+    usernames: [ "shinysorter" ]
+    passwords: [ "shiny_sorter" ]
+    databases: [ "shiny_sorter" ]
+  service:
+    type: "LoadBalancer"
+
+webdav:
+  nameOverride: "shinysorter-importdir-webdav"
+  urls:
+    /importdir:
+    - user: user1
+      password: password1
+  service:
+    type: LoadBalancer
+    port: 3141
+  persistence:
+    enabled: true
+    type: pvc
+    existingClaim: shinysorter-importdir
+  ingress:
+    host: ""

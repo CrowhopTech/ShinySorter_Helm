@@ -1,0 +1,9 @@
+dependencies:
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 12.1.24
+- name: webdav
+  repository: https://danuk.github.io/k8s-webdav
+  version: 0.0.1
+digest: sha256:73ea79ae23f1ff1b416ce2eb725f3b652bff104da668c6a699ef5efc7ec16af5
+generated: "2022-07-29T19:44:06.318049-07:00"
