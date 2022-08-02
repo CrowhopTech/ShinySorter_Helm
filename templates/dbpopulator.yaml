@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shinysorter-dbpopulator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dbpopulator
+  template:
+    metadata:
+      labels:
+        app: dbpopulator
+    spec:
+      volumes:
+      - name: importdir
+        persistentVolumeClaim:
+          claimName: shinysorter-importdir
+      containers:
+      # TODO: liveness probe
+      - name: dbpopulator
+        image: adamukaapan/shinysorter-backend:latest
+        imagePullPolicy: Always
+        command:
+        - '/dbpopulator'
+        - '--import-dir=/import/importdir'
+        - '--rest-address=shinysorter-apiserver:10000'
+        volumeMounts:
+        - mountPath: /import
+          name: importdir
+

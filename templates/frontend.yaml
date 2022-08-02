@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shinysorter-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: apiserver
+        image: adamukaapan/shinysorter-frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - name: ui
+          containerPort: 3000
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shinysorter-frontend
+spec:
+  ports:
+    - protocol: TCP
+      port: 31415
+      targetPort: ui
+      nodePort: 31415
+  selector:
+    app: frontend
+  type: LoadBalancer

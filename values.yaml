@@ -19,7 +19,7 @@ webdav:
       password: password1
   service:
     type: LoadBalancer
-    port: 3141
+    port: 5000
   persistence:
     enabled: true
     type: pvc

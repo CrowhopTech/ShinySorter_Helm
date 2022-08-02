@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shinysorter-apiserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apiserver
+  template:
+    metadata:
+      labels:
+        app: apiserver
+    spec:
+      volumes:
+      - name: storagedir
+        persistentVolumeClaim:
+          claimName: shinysorter-storagedir
+      containers:
+      - name: apiserver
+        image: adamukaapan/shinysorter-backend:latest
+        imagePullPolicy: Always
+        command:
+        - '/restserver'
+        - '--mongodb-connection-uri=mongodb://shinysorter:shiny_sorter@{{ include "shinysorter.fullname" . }}-mongodb/shiny_sorter'
+        - '--storage-dir=/storage'
+        volumeMounts:
+        - mountPath: /storage
+          name: storagedir
+        ports:
+        - name: rest
+          containerPort: 10000
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shinysorter-apiserver
+spec:
+  ports:
+    - protocol: TCP
+      targetPort: rest
+      port: 10000
+      nodePort: 30000
+  selector:
+    app: apiserver
+  type: LoadBalancer
