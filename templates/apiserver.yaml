@@ -23,26 +23,45 @@ spec:
         imagePullPolicy: Always
         command:
         - '/restserver'
-        - '--mongodb-connection-uri=mongodb://shinysorter:shiny_sorter@{{ include "shinysorter.fullname" . }}-mongodb/shiny_sorter'
+        - '--mongodb-connection-uri=mongodb://shinysorter:shiny_sorter@{{ include "shinysorter.fullname" . }}-mongodb:{{ .Values.mongodb.service.ports.mongodb }}/shiny_sorter'
         - '--storage-dir=/storage'
+        - '--listen-port={{ .Values.apiServer.port }}'
+        - '--log-level=debug'
         volumeMounts:
         - mountPath: /storage
           name: storagedir
         ports:
         - name: rest
-          containerPort: 10000
+          containerPort: {{ .Values.apiServer.port }}
           protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: shinysorter-apiserver
+  name: {{ include "shinysorter.fullname" . }}-apiserver
 spec:
   ports:
     - protocol: TCP
-      targetPort: rest
-      port: 10000
-      nodePort: 30000
+      port: {{ .Values.apiServer.port }}
   selector:
     app: apiserver
-  type: LoadBalancer
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "shinysorter.fullname" . }}-apiserver
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+  - http:
+      paths:
+      - path: {{ .Values.apiServer.prefix }}/api/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "shinysorter.fullname" . }}-apiserver
+            port:
+              number: {{ .Values.apiServer.port }}

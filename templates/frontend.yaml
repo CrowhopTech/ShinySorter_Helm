@@ -14,9 +14,14 @@ spec:
         app: frontend
     spec:
       containers:
-      - name: apiserver
+      - name: frontend
         image: adamukaapan/shinysorter-frontend:latest
         imagePullPolicy: Always
+        env:
+        - name: API_SERVER_BASEPATH
+          value: {{ trimPrefix "/" .Values.apiServer.prefix }}/api
+        - name: BASEPATH
+          value: {{ trimPrefix "/" .Values.frontend.prefix }}
         ports:
         - name: ui
           containerPort: 3000
@@ -25,13 +30,31 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: shinysorter-frontend
+  name: {{ include "shinysorter.fullname" . }}-frontend
 spec:
   ports:
     - protocol: TCP
-      port: 31415
-      targetPort: ui
-      nodePort: 31415
+      targetPort: 3000
+      port: 3000
   selector:
     app: frontend
-  type: LoadBalancer
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "shinysorter.fullname" . }}-frontend
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+  - http:
+      paths:
+      - path: {{ .Values.frontend.prefix }}/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "shinysorter.fullname" . }}-frontend
+            port:
+              number: 3000

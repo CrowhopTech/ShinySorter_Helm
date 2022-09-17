@@ -26,3 +26,11 @@ webdav:
     existingClaim: shinysorter-importdir
   ingress:
     host: ""
+
+apiServer:
+  port: 30000
+  prefix: ""
+
+frontend:
+  port: 31415
+  prefix: ""

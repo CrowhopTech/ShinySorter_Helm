@@ -25,7 +25,8 @@ spec:
         command:
         - '/dbpopulator'
         - '--import-dir=/import/importdir'
-        - '--rest-address=shinysorter-apiserver:10000'
+        - '--rest-address=shinysorter-apiserver:{{ .Values.apiServer.port }}'
+        - '--log-level=debug'
         volumeMounts:
         - mountPath: /import
           name: importdir

@@ -2,7 +2,9 @@
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: "shinysorter-mongo-sc"
+  name: shinysorter-mongo-sc
+  annotations:
+    helm.sh/hook: pre-install
 provisioner: pxd.portworx.com
 parameters:
   repl: "1"
@@ -12,6 +14,8 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: shinysorter-importdir-sc
+  annotations:
+    helm.sh/hook: pre-install
 provisioner: pxd.portworx.com
 parameters:
   repl: "1"
@@ -33,6 +37,8 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: shinysorter-storagedir-sc
+  annotations:
+    helm.sh/hook: pre-install
 provisioner: pxd.portworx.com
 parameters:
   repl: "1"
