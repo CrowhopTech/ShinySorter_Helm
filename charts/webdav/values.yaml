@@ -18,6 +18,7 @@ imagePullSecrets: []
 
 ingress:
   host: my-domain.com
+  path: ""
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 1000m
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"

@@ -18,8 +18,8 @@ webdav:
     - user: user1
       password: password1
   service:
-    type: LoadBalancer
-    port: 5000
+    type: ClusterIP
+    port: 80
   persistence:
     enabled: true
     type: pvc
