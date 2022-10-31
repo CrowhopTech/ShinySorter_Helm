@@ -13,6 +13,7 @@ spec:
       labels:
         app: frontend
     spec:
+      terminationGracePeriodSeconds: 5
       containers:
       - name: frontend
         image: adamukaapan/shinysorter-frontend:latest

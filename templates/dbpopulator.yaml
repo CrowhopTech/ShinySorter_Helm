@@ -24,8 +24,8 @@ spec:
         imagePullPolicy: Always
         command:
         - '/dbpopulator'
-        - '--import-dir=/import/importdir'
-        - '--rest-address=shinysorter-apiserver:{{ .Values.apiServer.port }}'
+        - '--import-dir=/import'
+        - '--rest-address={{ include "shinysorter.fullname" . }}-apiserver:{{ .Values.apiServer.port }}'
         - '--log-level=debug'
         volumeMounts:
         - mountPath: /import
