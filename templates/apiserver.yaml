@@ -25,14 +25,14 @@ spec:
         - '/restserver'
         - '--mongodb-connection-uri=mongodb://shinysorter:shiny_sorter@{{ include "shinysorter.fullname" . }}-mongodb:{{ .Values.mongodb.service.ports.mongodb }}/shiny_sorter'
         - '--storage-dir=/storage'
-        - '--listen-port={{ .Values.apiServer.port }}'
+        - '--listen-port=80'
         - '--log-level=debug'
         volumeMounts:
         - mountPath: /storage
           name: storagedir
         ports:
         - name: rest
-          containerPort: {{ .Values.apiServer.port }}
+          containerPort: 80
           protocol: TCP
 ---
 apiVersion: v1
@@ -42,7 +42,7 @@ metadata:
 spec:
   ports:
     - protocol: TCP
-      port: {{ .Values.apiServer.port }}
+      port: 80
   selector:
     app: apiserver
   type: ClusterIP
@@ -64,4 +64,4 @@ spec:
           service:
             name: {{ include "shinysorter.fullname" . }}-apiserver
             port:
-              number: {{ .Values.apiServer.port }}
+              number: 80

@@ -37,7 +37,7 @@ spec:
           protocol: TCP
         volumeMounts:
         - name: config
-          mountPath: /etc/nginx/html/config
+          mountPath: /etc/nginx/html/assets
           readOnly: true
       volumes:
         - name: config
@@ -54,7 +54,6 @@ metadata:
 spec:
   ports:
     - protocol: TCP
-      targetPort: 80
       port: 80
   selector:
     app: frontend

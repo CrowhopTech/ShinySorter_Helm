@@ -9,7 +9,7 @@ mongodb:
     passwords: [ "shiny_sorter" ]
     databases: [ "shiny_sorter" ]
   service:
-    type: "LoadBalancer"
+    type: "ClusterIP"
 
 webdav:
   nameOverride: "shinysorter-importdir-webdav"
@@ -28,9 +28,7 @@ webdav:
     host: ""
 
 apiServer:
-  port: 30000
   prefix: ""
 
 frontend:
-  port: 31415
   prefix: ""
