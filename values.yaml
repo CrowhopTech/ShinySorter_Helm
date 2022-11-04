@@ -30,5 +30,8 @@ webdav:
 apiServer:
   prefix: ""
 
+dbPopulator:
+  importSubdirectory: ""
+
 frontend:
   prefix: ""
