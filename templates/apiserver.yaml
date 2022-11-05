@@ -19,7 +19,7 @@ spec:
           claimName: shinysorter-storagedir
       containers:
       - name: apiserver
-        image: adamukaapan/shinysorter-backend:latest
+        image: {{ .Values.apiServer.image }}
         imagePullPolicy: Always
         command:
         - '/restserver'

@@ -28,10 +28,13 @@ webdav:
     host: ""
 
 apiServer:
+  image: "adamukaapan/shinysorter-backend:alpha-v0.1"
   prefix: ""
 
 dbPopulator:
+  image: "adamukaapan/shinysorter-backend:alpha-v0.1"
   importSubdirectory: ""
 
 frontend:
+  image: "adamukaapan/shinysorter-frontend-angular:alpha-v0.1"
   prefix: ""

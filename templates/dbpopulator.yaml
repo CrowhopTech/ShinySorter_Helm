@@ -20,7 +20,7 @@ spec:
       containers:
       # TODO: liveness probe
       - name: dbpopulator
-        image: adamukaapan/shinysorter-backend:latest
+        image: {{ .Values.dbPopulator.image }}
         imagePullPolicy: Always
         command:
         - '/dbpopulator'
