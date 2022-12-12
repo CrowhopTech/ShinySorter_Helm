@@ -1,22 +1,9 @@
-mongodb:
-  architecture: standalone
-  persistence:
-    storageClass: shinysorter-mongo-sc
-    resourcePolicy: "keep"
-    size: "8Gi"
-  auth:
-    usernames: [ "shinysorter" ]
-    passwords: [ "shiny_sorter" ]
-    databases: [ "shiny_sorter" ]
-  service:
-    type: "ClusterIP"
-
 webdav:
   nameOverride: "shinysorter-importdir-webdav"
   urls:
     /importdir:
-    - user: user1
-      password: password1
+      - user: user1
+        password: password1
   service:
     type: ClusterIP
     port: 80
@@ -27,14 +14,18 @@ webdav:
   ingress:
     host: ""
 
-apiServer:
-  image: "adamukaapan/shinysorter-backend:alpha-v0.1"
-  prefix: ""
-
 dbPopulator:
   image: "adamukaapan/shinysorter-backend:alpha-v0.1"
   importSubdirectory: ""
 
 frontend:
   image: "adamukaapan/shinysorter-frontend-angular:alpha-v0.1"
+  prefix: ""
+
+queryServer:
+  image: "adamukaapan/shinysorter-query-server:alpha-v0.1"
+  prefix: ""
+
+contentServer:
+  image: "nginx:latest"
   prefix: ""

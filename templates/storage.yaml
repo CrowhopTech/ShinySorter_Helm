@@ -1,3 +1,7 @@
+### storage.yaml
+# Contains the storage definitions for the project. Powered by Portworx, but
+# can work with anything providing ReadWriteMany capabilities
+###
 ---
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -42,6 +46,7 @@ metadata:
 provisioner: pxd.portworx.com
 parameters:
   repl: "1"
+  sharedv4: "true"
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -50,7 +55,7 @@ metadata:
 spec:
   storageClassName: shinysorter-storagedir-sc
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 100Gi

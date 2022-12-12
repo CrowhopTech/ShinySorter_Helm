@@ -1,3 +1,6 @@
+### frontend.yaml
+# Contains the Web Frontend for the Shiny Sorter.
+###
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -6,7 +9,8 @@ metadata:
 data:
   app.config.json: |
     {
-      "apiServerAddress": "{{ .Values.apiServer.prefix }}/api"
+      "queryServerAddress": "{{ .Values.queryServer.prefix }}/query",
+      "contentServerAddress": "{{ .Values.contentServer.prefix }}/content"
     }
 ---
 apiVersion: apps/v1
@@ -69,6 +73,15 @@ spec:
   rules:
   - http:
       paths:
+      {{- if .Values.frontend.prefix }}
+      - path: {{ .Values.frontend.prefix }}
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "shinysorter.fullname" . }}-frontend
+            port:
+              number: 80
+      {{- end}}
       - path: {{ .Values.frontend.prefix }}/
         pathType: Prefix
         backend:

@@ -1,3 +1,7 @@
+### dbpopulator.yaml
+# Contains the DB Populator for the Shiny Sorter. This takes files inserted into the given import
+# directory and will create a database entry while copying the file over to the storage directory.
+###
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -14,20 +18,37 @@ spec:
         app: dbpopulator
     spec:
       volumes:
-      - name: importdir
-        persistentVolumeClaim:
-          claimName: shinysorter-importdir
+        - name: importdir
+          persistentVolumeClaim:
+            claimName: shinysorter-importdir
+        - name: storagedir
+          persistentVolumeClaim:
+            claimName: shinysorter-storagedir
       containers:
-      # TODO: liveness probe
-      - name: dbpopulator
-        image: {{ .Values.dbPopulator.image }}
-        imagePullPolicy: Always
-        command:
-        - '/dbpopulator'
-        - '--import-dir=/import{{ .Values.dbPopulator.importSubdirectory }}'
-        - '--rest-address={{ include "shinysorter.fullname" . }}-apiserver'
-        - '--log-level=debug'
-        volumeMounts:
-        - mountPath: /import
-          name: importdir
-
+        # TODO: liveness probe
+        - name: dbpopulator
+          image: "{{ .Values.dbPopulator.image }}"
+          imagePullPolicy: Always
+          command:
+            - "/dbpopulator"
+            - "--import-dir=/import{{ .Values.dbPopulator.importSubdirectory }}"
+            - "--storage-dir=/storage"
+            - "--log-level=debug"
+          env:
+            - name: SUPABASE_ADDRESS
+              valueFrom:
+                secretKeyRef:
+                  name: supabase-db-credentials
+                  key: supabaseAddress
+                  optional: false
+            - name: SUPABASE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: supabase-db-credentials
+                  key: supabaseKey
+                  optional: false
+          volumeMounts:
+            - mountPath: /import
+              name: importdir
+            - mountPath: /storage
+              name: storagedir
