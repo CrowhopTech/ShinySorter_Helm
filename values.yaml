@@ -14,18 +14,23 @@ webdav:
   ingress:
     host: ""
 
-dbPopulator:
-  image: "adamukaapan/shinysorter-backend:alpha-v0.1"
-  importSubdirectory: ""
+importer:
+  image: "adamukaapan/shinysorter-importer:alpha-v0.2"
+  # importSubdirectory: ""
 
 frontend:
-  image: "adamukaapan/shinysorter-frontend-angular:alpha-v0.1"
+  image: "adamukaapan/shinysorter-frontend-angular:alpha-v0.2"
   prefix: ""
 
 queryServer:
-  image: "adamukaapan/shinysorter-query-server:alpha-v0.1"
+  image: "adamukaapan/shinysorter-query-server:alpha-v0.2"
   prefix: ""
 
-contentServer:
-  image: "nginx:latest"
-  prefix: ""
+smb:
+  port: 445
+  username: ""
+  password: ""
+
+supabase:
+  address: ""
+  key: ""

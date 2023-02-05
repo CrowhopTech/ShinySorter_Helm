@@ -1,54 +1,54 @@
 apiVersion: v1
 entries:
   mongodb:
-  - annotations:
-      category: Database
-    apiVersion: v2
-    appVersion: 5.0.9
-    created: "2022-11-05T12:56:32.7712818-07:00"
-    dependencies:
-    - name: common
-      repository: https://charts.bitnami.com/bitnami
-      tags:
-      - bitnami-common
-      version: 1.x.x
-    description: MongoDB(R) is a relational open source NoSQL database. Easy to use, it stores data in JSON-like documents. Automated scalability and high-performance. Ideal for developing cloud native applications.
-    digest: 7fdd41fed14b8fa6d7f89754cff7c6b4059b3ba1ab5c61ce9e508abbcfba01f4
-    home: https://github.com/bitnami/charts/tree/master/bitnami/mongodb
-    icon: https://bitnami.com/assets/stacks/mongodb/img/mongodb-stack-220x234.png
-    keywords:
-    - mongodb
-    - database
-    - nosql
-    - cluster
-    - replicaset
-    - replication
-    maintainers:
-    - name: Bitnami
-      url: https://github.com/bitnami/charts
-    name: mongodb
-    sources:
-    - https://github.com/bitnami/bitnami-docker-mongodb
-    - https://mongodb.org
-    urls:
-    - charts/mongodb-12.1.24.tgz
-    version: 12.1.24
-  shinysorter:
-  - apiVersion: v2
-    appVersion: alpha-v0.1
-    created: "2022-11-05T12:56:32.7658746-07:00"
-    dependencies:
-    - name: mongodb
-      repository: https://charts.bitnami.com/bitnami
+    - annotations:
+        category: Database
+      apiVersion: v2
+      appVersion: 5.0.9
+      created: "2022-11-05T12:56:32.7712818-07:00"
+      dependencies:
+        - name: common
+          repository: https://charts.bitnami.com/bitnami
+          tags:
+            - bitnami-common
+          version: 1.x.x
+      description: MongoDB(R) is a relational open source NoSQL database. Easy to use, it stores data in JSON-like documents. Automated scalability and high-performance. Ideal for developing cloud native applications.
+      digest: 7fdd41fed14b8fa6d7f89754cff7c6b4059b3ba1ab5c61ce9e508abbcfba01f4
+      home: https://github.com/bitnami/charts/tree/master/bitnami/mongodb
+      icon: https://bitnami.com/assets/stacks/mongodb/img/mongodb-stack-220x234.png
+      keywords:
+        - mongodb
+        - database
+        - nosql
+        - cluster
+        - replicaset
+        - replication
+      maintainers:
+        - name: Bitnami
+          url: https://github.com/bitnami/charts
+      name: mongodb
+      sources:
+        - https://github.com/bitnami/bitnami-docker-mongodb
+        - https://mongodb.org
+      urls:
+        - charts/mongodb-12.1.24.tgz
       version: 12.1.24
-    - name: webdav
-      repository: https://danuk.github.io/k8s-webdav
-      version: 0.0.1
-    description: Deploys the "shiny sorter" application database and other relevant containers.
-    digest: e423c1a2afac0a66b145921a646f3c744fcffbaa805964629f52aa2bf565c2a8
-    name: shinysorter
-    type: application
-    urls:
-    - shinysorter-0.1.0.tgz
-    version: 0.1.0
+  shinysorter:
+    - apiVersion: v2
+      appVersion: alpha-v0.1
+      created: "2022-11-05T12:56:32.7658746-07:00"
+      dependencies:
+        - name: mongodb
+          repository: https://charts.bitnami.com/bitnami
+          version: 12.1.24
+        - name: webdav
+          repository: https://danuk.github.io/k8s-webdav
+          version: 0.0.1
+      description: Deploys the "shiny sorter" application database and other relevant containers.
+      digest: e423c1a2afac0a66b145921a646f3c744fcffbaa805964629f52aa2bf565c2a8
+      name: shinysorter
+      type: application
+      urls:
+        - shinysorter-0.1.0.tgz
+      version: 0.1.0
 generated: "2022-11-05T12:56:32.7597262-07:00"
