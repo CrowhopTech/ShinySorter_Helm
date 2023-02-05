@@ -1,0 +1,41 @@
+### importer.yaml
+# Contains the file importer for the Shiny Sorter. This takes files inserted into the given import
+# directory and will create a database entry while copying the file over to the storage directory.
+###
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "shinysorter.fullname" . }}-importer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: importer
+  template:
+    metadata:
+      labels:
+        app: importer
+    spec:
+      volumes:
+        - name: importdir
+          persistentVolumeClaim:
+            claimName: shinysorter-importdir
+      containers:
+        - name: importer
+          image: "{{ .Values.importer.image }}"
+          imagePullPolicy: Always
+          env:
+            - name: SUPABASE_ADDRESS
+              value: "{{ .Values.supabase.address }}"
+            - name: SUPABASE_KEY
+              value: "{{ .Values.supabase.key }}"
+            - name: BUCKET_NAME
+              value: "files"
+            - name: THUMBS_BUCKET_NAME
+              value: "thumbs"
+            - name: IMPORT_DIRECTORY
+              value: "/import{{ .Values.dbPopulator.importSubdirectory }}"
+          volumeMounts:
+            - mountPath: /import
+              name: importdir

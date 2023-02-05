@@ -8,16 +8,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: shinysorter-queryserver
+  name: {{ include "shinysorter.fullname" . }}-queryserver
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: query
+      app: queryserver
   template:
     metadata:
       labels:
-        app: query
+        app: queryserver
     spec:
       terminationGracePeriodSeconds: 5
       containers:
@@ -47,7 +47,7 @@ spec:
     - protocol: TCP
       port: 80
   selector:
-    app: query
+    app: queryserver
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
