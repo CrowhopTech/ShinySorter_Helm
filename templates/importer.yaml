@@ -34,7 +34,7 @@ spec:
             claimName: shinysorter-importdir
       containers:
         - name: importer
-          image: "{{ .Values.importer.image }}"
+          image: "{{ .Values.importer.image }}:{{ .Values.importer.tag }}"
           imagePullPolicy: Always
           env:
             - name: SUPABASE_ADDRESS

@@ -41,7 +41,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: frontend
-        image: {{ .Values.frontend.image }}
+        image: "{{ .Values.frontend.image }}:{{ .Values.frontend.tag }}"
         imagePullPolicy: Always
         env:
         - name: TARGET_BASE_PATH

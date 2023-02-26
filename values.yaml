@@ -17,19 +17,22 @@ webdav:
     host: ""
 
 importer:
-  image: "adamukaapan/shinysorter-importer:alpha-v0.2"
+  image: "adamukaapan/shinysorter-importer"
+  tag: "alpha-v0.2"
   importSubdirectory: ""
   nodeSelector: null
   tolerations: null
 
 frontend:
-  image: "adamukaapan/shinysorter-frontend-angular:alpha-v0.2"
+  image: "adamukaapan/shinysorter-frontend-angular"
+  tag: "alpha-v0.2"
   prefix: ""
   nodeSelector: null
   tolerations: null
 
 queryServer:
-  image: "adamukaapan/shinysorter-query-server:alpha-v0.2"
+  image: "adamukaapan/shinysorter-query-server"
+  tag: "alpha-v0.2"
   prefix: ""
   nodeSelector: null
   tolerations: null

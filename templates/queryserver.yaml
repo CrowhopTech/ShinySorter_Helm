@@ -32,7 +32,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
         - name: queryserver
-          image: "{{ .Values.queryServer.image }}"
+          image: "{{ .Values.queryServer.image }}:{{ .Values.queryServer.tag }}"
           imagePullPolicy: Always
           env:
             - name: PORT
