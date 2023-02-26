@@ -16,21 +16,53 @@ webdav:
 
 importer:
   image: "adamukaapan/shinysorter-importer:alpha-v0.2"
-  # importSubdirectory: ""
+  importSubdirectory: ""
+  nodeSelector: null
+  tolerations: null
 
 frontend:
   image: "adamukaapan/shinysorter-frontend-angular:alpha-v0.2"
   prefix: ""
+  nodeSelector: null
+  tolerations: null
 
 queryServer:
   image: "adamukaapan/shinysorter-query-server:alpha-v0.2"
   prefix: ""
-
-smb:
-  port: 445
-  username: ""
-  password: ""
+  nodeSelector: null
+  tolerations: null
 
 supabase:
   address: ""
-  key: ""
+  jwtSecret: ""
+  anonKey: ""
+  serviceKey: ""
+  postgresql:
+    address: "" # Temporary hack
+    password: ""
+    port: 31415
+    nodeSelector: null
+    tolerations: null
+  studio:
+    port: 3000
+    nodeSelector: null
+    tolerations: null
+  rest:
+    nodeSelector: null
+    tolerations: null
+  auth:
+    nodeSelector: null
+    tolerations: null
+  realtime:
+    nodeSelector: null
+    tolerations: null
+  storage:
+    nodeSelector: null
+    tolerations: null
+  meta:
+    nodeSelector: null
+    tolerations: null
+  kong:
+    port: 8000
+    nodeSelector: null
+    tolerations: null

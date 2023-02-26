@@ -26,4 +26,4 @@ appVersion: "alpha-v0.2"
 dependencies: # A list of the chart requirements (optional)
   - name: webdav
     version: "0.0.1"
-    repository: https://danuk.github.io/k8s-webdav
+    repository: https://danuk.github.io/k8s-webdav*

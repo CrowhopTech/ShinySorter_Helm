@@ -10,8 +10,8 @@ data:
   app.config.json: |
     {
       "queryServerAddress": "{{ .Values.queryServer.prefix }}/query",
-      "supabaseAddress": "{{ .Values.supabase.address }}",
-      "supabaseKey": "{{ .Values.supabase.key }}"
+      "supabaseAddress": "http://{{ .Values.supabase.address }}:{{ .Values.supabase.kong.port }}",
+      "supabaseKey": "{{ .Values.supabase.anonKey }}"
     }
 ---
 apiVersion: apps/v1
@@ -28,6 +28,16 @@ spec:
       labels:
         app: frontend
     spec:
+      {{ with .Values.frontend }}
+      {{ if .nodeSelector }}
+      nodeSelector:
+        {{- toYaml .nodeSelector | nindent 8}}
+      {{ end }}
+      {{ if .tolerations }}
+      tolerations:
+        {{- toYaml .tolerations | nindent 8}}
+      {{ end }}
+      {{ end }}
       terminationGracePeriodSeconds: 5
       containers:
       - name: frontend
@@ -67,19 +77,12 @@ metadata:
   name: {{ include "shinysorter.fullname" . }}-frontend
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/configuration-snippet: |
+      rewrite ^(/{{ .Values.frontend.prefix }})$ $1/ redirect;
 spec:
   rules:
   - http:
       paths:
-      {{- if .Values.frontend.prefix }}
-      - path: {{ .Values.frontend.prefix }}
-        pathType: Prefix
-        backend:
-          service:
-            name: {{ include "shinysorter.fullname" . }}-frontend
-            port:
-              number: 80
-      {{- end}}
       - path: {{ .Values.frontend.prefix }}/
         pathType: Prefix
         backend:
