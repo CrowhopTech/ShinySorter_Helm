@@ -1,3 +1,5 @@
+reclaimPolicy: Retain
+
 webdav:
   nameOverride: "shinysorter-importdir-webdav"
   urls:
