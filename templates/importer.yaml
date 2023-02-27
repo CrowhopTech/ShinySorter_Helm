@@ -32,6 +32,13 @@ spec:
         - name: importdir
           persistentVolumeClaim:
             claimName: shinysorter-importdir
+      initContainers:
+      - name: wait-for-postgres
+        image: busybox
+        command:  ["sh", "-c", "until nc -w 5 -z supabase-postgres {{ .Values.supabase.postgresql.port }} > /dev/null; do echo Waiting for postgres.; sleep 2; done; echo 'PostgreSQL is up'"]
+      - name: wait-for-storage
+        image: busybox
+        command:  ["sh", "-c", "until nc -w 5 -z supabase-storage 5000 > /dev/null; do echo Waiting for Storage.; sleep 2; done; echo 'Storage is up'"]
       containers:
         - name: importer
           image: "{{ .Values.importer.image }}:{{ .Values.importer.tag }}"

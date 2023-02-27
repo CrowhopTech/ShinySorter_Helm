@@ -83,7 +83,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: {{ .Values.frontend.prefix }}/
+      - path: {{ .Values.frontend.prefix }}/?
         pathType: Prefix
         backend:
           service:
