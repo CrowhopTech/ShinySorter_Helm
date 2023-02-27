@@ -18,21 +18,21 @@ webdav:
 
 importer:
   image: "adamukaapan/shinysorter-importer"
-  tag: "alpha-v0.3"
+  tag: "alpha-v0.3.1"
   importSubdirectory: ""
   nodeSelector: null
   tolerations: null
 
 frontend:
   image: "adamukaapan/shinysorter-frontend-angular"
-  tag: "alpha-v0.3"
+  tag: "alpha-v0.3.1"
   prefix: ""
   nodeSelector: null
   tolerations: null
 
 queryServer:
   image: "adamukaapan/shinysorter-query-server"
-  tag: "alpha-v0.3"
+  tag: "alpha-v0.3.1"
   prefix: ""
   nodeSelector: null
   tolerations: null
